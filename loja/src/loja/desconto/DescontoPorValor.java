@@ -11,12 +11,26 @@ public class DescontoPorValor extends Desconto{
 	}
 
 	@Override
-	public BigDecimal calcular(Pedido pedido) {
-		if(pedido.getValor().compareTo(new BigDecimal("500")) > 0) {
+	public BigDecimal aplicar(Pedido pedido) {
 			return pedido.getValor().multiply(new BigDecimal("0.1"));
-		}
-		
-		return proximo.calcular(pedido);
 	}
+
+	@Override
+	protected boolean deveAplicar(Pedido pedido) {
+		return pedido.getValor().compareTo(new BigDecimal("500")) > 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
