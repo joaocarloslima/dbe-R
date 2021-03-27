@@ -1,5 +1,5 @@
 package loja;
 
 public interface PedidoListeners {
-	public void update(Pedido pedido);
+	public void update(PedidoInterface pedido);
 }

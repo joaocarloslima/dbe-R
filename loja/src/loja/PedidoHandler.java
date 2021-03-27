@@ -18,7 +18,7 @@ public class PedidoHandler {
 		listeners.remove(listener);
 	}
 	
-	public void notifyAll(Pedido pedido) {
+	public void notifyAll(PedidoInterface pedido) {
 		listeners.forEach(listener -> listener.update(pedido));
 	}
 }
