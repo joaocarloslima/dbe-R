@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+body{
+	background: #ddd;
+}
+
+.card-form{
+	width: 25em;
+	margin: 1em auto;
+}
