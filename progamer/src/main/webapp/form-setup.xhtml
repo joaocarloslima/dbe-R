@@ -9,38 +9,59 @@
 
 <ui:composition template="_template.xhtml">
 	<ui:define name="content">
-		<p:messages><p:autoUpdate /></p:messages>
+		<p:messages id="messages"><p:autoUpdate /></p:messages>
 
+		<h:form>
 		<p:card class="card-form">
 		    <f:facet name="title">
 		        New Setup
 		    </f:facet>
 		   
-			<h:form>
 				<h:panelGrid columns="2">
 					<p:outputLabel for="name" value="Name"/>
-					<p:inputText id="name" value="#{setupBean.setup.name}" required="true" />
+					<p:inputText id="name" value="#{setupBean.setup.name}" required="true" >
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
 					
 					<p:outputLabel for="description" value="Description"/>
 					<p:inputText id="description" value="#{setupBean.setup.description}" validatorMessage="O campo deve ter pelo menos 10 caracteres" >
 						<f:validateLength minimum="10" maximum="255" />
+						<f:ajax event="blur" render="messages" />
 					</p:inputText>
 					
 					<p:outputLabel for="price" value="Price"/>
 					<p:inputText id="price" value="#{setupBean.setup.price}" converterMessage="Preço deve ser um numero">
 						<f:validateDoubleRange minimum="0" />
+						<f:ajax event="blur" render="messages" />
 					</p:inputText>
 					
 					
 				</h:panelGrid>
 			
-			</h:form>
 			
 		    <f:facet name="footer">
-		        <p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.save}"/>
+		        <p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.save}">
+		        	<p:ajax execute="@form" update="table-setups" />
+		        </p:commandButton>
 		        <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
 		    </f:facet>
 		</p:card>
+		</h:form>
+		
+		<h:form id="table-setups" >
+		    <div class="card">
+		        <p:dataTable var="setup" value="#{setupBean.setups}">
+		            <p:column headerText="Name">
+		                <h:outputText value="#{setup.name}" />
+		            </p:column>
+		
+		            <p:column headerText="Price">
+		                <h:outputText value="#{setup.price}" />
+		            </p:column>
+		        </p:dataTable>
+		    </div>
+		</h:form>
+		
 		
 	</ui:define>
 		
