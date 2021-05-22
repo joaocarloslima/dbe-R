@@ -16,9 +16,6 @@ public class UserDao {
 		manager.getTransaction().begin();
 		manager.persist(user);
 		manager.getTransaction().commit();
-		
-		manager.close();
-		
 	}
 
 	public List<User> getAll() {
@@ -30,4 +27,40 @@ public class UserDao {
 		
 	}
 
+	public boolean exist(User user) {
+		EntityManager manager = JPAUtil.getEntityManager();
+		TypedQuery<User> query = manager.createQuery("SELECT u FROM User u WHERE "
+													+ "u.email = :email AND "
+													+ "u.password = :password", 
+													User.class);
+		query.setParameter("email", user.getEmail());
+		query.setParameter("password", user.getPassword());
+		
+		try {
+			query.getSingleResult();
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
